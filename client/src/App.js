@@ -1,11 +1,17 @@
 import "./App.css";
-import GetAssist from "./components/GetAssist";
+import GiveAssist from "./components/GiveAssist";
+// import GetAssist from "./components/GetAssist";
+// import Home from "./components/Home";
+// import Login from "./components/Login";
 // import TestComponent from "./components/TestComponent";
 
 function App() {
   return (
     <div className="App">
-      <GetAssist />
+      {/* <GetAssist /> */}
+      {/* <Home /> */}
+      {/* <Login /> */}
+      <GiveAssist />
     </div>
   );
 }

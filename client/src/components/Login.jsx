@@ -1,13 +1,14 @@
 import React from "react";
 
-// import * as React from 'react';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CloseIcon from "@mui/icons-material/Close";
+import { Icon } from "@iconify/react";
 
 const theme = createTheme({
   palette: {
@@ -23,26 +24,73 @@ const styles = {
     fontWeight: "800",
     lineHeight: "19px",
   },
-  textAssist: {
+  loginWithGoogleButton: {
+    position: "absolute",
+    width: "464px",
+    height: "56px",
+    left: "calc(50% - 464px/2 + 2.5px)",
+    top: "calc(50% - 330px/2 + 263px)",
+    border: "0.5px solid",
+    borderRadius: "10px",
+    alignItems: "center",
+    textAlign: "center",
     fontFontFamily: "Inter, Helvetica",
     fontStyle: "normal",
     fontSize: "16px",
     fontWeight: "800",
-    lineHeight: "19px",
+    backgroundColor: "#fff",
+  },
+  googleLogo: {
+    position: "absolute",
+    width: "37px",
+    height: "42px",
+    left: "471px",
+    top: "490px",
+    left: "calc(50% - 464px/2 + 2.5px)",
+    top: "calc(50% - 330px/2 + 263px)",
   },
 };
 
-export default function Home() {
+function Form() {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        height: "48px",
+        width: "1042px",
+        left: "320px",
+        top: "230px",
+        borderRadius: "0px",
+      }}
+    >
+      {" "}
+      {/* <Form style={{ display: "flex" }}> */}
+      <div style={{ display: "flex" }}>
+        <div>
+          <button
+            // style={{backgroundImage: "url()"}}
+            style={styles.loginWithGoogleButton}
+            type="text"
+            id="fname"
+            name="fname"
+            // value="Login with Google"
+          >
+            Login with Google
+          </button>
+          {/* </Form> */}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function loginWithGoogle() {
   return (
     <div
       style={{
         position: "relative",
         width: "100vw",
         height: "100vh",
-        // backgroundImage:
-        //   "url(https://images.pexels.com/photos/910213/pexels-photo-910213.jpeg?cs=srgb&dl=pexels-jayant-kulkarni-910213.jpg&fm=jpg)",
-        // backgroundSize: "cover",
-        // zIndex: "-10",
       }}
     >
       <div
@@ -64,7 +112,7 @@ export default function Home() {
               <AppBar position="static" elevation={0}>
                 <Toolbar>
                   <Button style={styles.logoText} color="inherit">
-                    Helpdesk
+                    Helpdesk | Get Assist
                   </Button>
 
                   <Typography
@@ -73,15 +121,13 @@ export default function Home() {
                     sx={{ flexGrow: 1 }}
                   ></Typography>
                   {/* <div></div> */}
-                  <Button style={styles.textAssist} color="inherit">
-                    Get assist
-                  </Button>
-                  <Button style={styles.textAssist} color="inherit">
-                    Give assist
-                  </Button>
+                  {/* <Button color="inherit">Get assist</Button>
+                  <Button color="inherit">Give assist</Button> */}
+                  <CloseIcon />
                 </Toolbar>
               </AppBar>
             </Box>
+            <Form />
           </ThemeProvider>
         </div>
       </div>

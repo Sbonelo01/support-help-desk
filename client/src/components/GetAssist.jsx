@@ -1,15 +1,12 @@
 import React from "react";
 
-// import * as React from 'react';
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-// import IconButton from "@mui/material/IconButton";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { fontFamily } from "@mui/system";
-// import { makeStyles } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
@@ -19,6 +16,11 @@ const theme = createTheme({
 
 const styles = {
   logoButton: {
+    fontFontFamily: "Inter, Helvetica",
+    fontStyle: "normal",
+    fontSize: "16px",
+    fontWeight: "800",
+    lineHeight: "19px",
     padding: "40px",
   },
   input: {
@@ -39,7 +41,7 @@ const styles = {
   },
   textInput: {
     height: "270px",
-    width: "177px",
+    width: "464px",
     left: "741px",
     bottom: "582px",
     borderRadius: "10px",
@@ -78,21 +80,14 @@ function Form() {
         height: "486px",
         width: "1042px",
         left: "209px",
-        top: "357px",
+        top: "230px",
         borderRadius: "0px",
       }}
     >
       {" "}
       {/* <Form style={{ display: "flex" }}> */}
       <div style={{ display: "flex" }}>
-        <div
-          style={{
-            flex: "1",
-            padding: "1rem",
-            // border: "0.5px solid",
-            margin: "2px",
-          }}
-        >
+        <div>
           <div>
             {/* input for text */}
             <input
@@ -160,7 +155,7 @@ function Form() {
           type="text"
           id="fname"
           name="fname"
-          value="Submit'"
+          value="Submit"
         ></input>
         {/* </Form> */}
       </div>
@@ -193,7 +188,7 @@ export default function GetAssist() {
         <div>
           <ThemeProvider theme={theme}>
             <Box sx={{ flexGrow: 1 }}>
-              <AppBar position="static">
+              <AppBar position="static" elevation={0}>
                 <Toolbar>
                   <Button style={styles.logoButton} color="inherit">
                     Helpdesk | Get Assist
