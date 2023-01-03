@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -9,13 +9,12 @@ import Button from "@mui/material/Button";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
-import Input from "@mui/material/Input";
-
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import JavascriptIcon from "@mui/icons-material/Javascript";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CloseIcon from "@mui/icons-material/Close";
+
+import { Icon } from "@iconify/react";
 
 const theme = createTheme({
   palette: {
@@ -79,7 +78,7 @@ const style = (theme) => ({
   sendReply: {
     position: "absolute",
     top: 3,
-    right: 2,
+    right: 4,
     height: "40px",
     borderRadius: "10px",
     border: "1px solid",
@@ -88,90 +87,35 @@ const style = (theme) => ({
   },
   sendButtonContainer: {
     position: "relative",
-    padding: "4%",
+    padding: "3%",
   },
 });
 
-function FormInput(props) {
-  const styles = style();
-
-  return (
-    <Box component="form">
-      <div>
-        <textarea
-          style={{ width: "99%", border: "0 solid" }}
-          rows="4"
-          cols="50"
-          placeholder="Write reply..."
-        ></textarea>
-        <div style={styles.sendButtonContainer}>
-          {/* <button style={styles.sendReply}>Send Reply</button> */}
-          <button style={styles.sendReply}>Send Reply</button>
-        </div>
-      </div>
-    </Box>
-  );
-}
-
-function QueryAccordion() {
-  const [expanded, setExpanded] = useState(false);
-
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
-  const styles = style();
-  //   console.log(x);
-
-  return (
-    <div>
-      <div style={styles.individualAccordionContainer}>
-        <div>
-          <Accordion
-            style={styles.accordionSummary}
-            expanded={expanded === "panel1"}
-            onChange={handleChange("panel1")}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon fontSize="large" />}
-              aria-controls="panel1bh-content"
-              id="panel1bh-header"
-            >
-              <Typography
-                sx={{
-                  width: "33%",
-                  flexShrink: 0,
-                  display: "flex",
-                  justifyContent: "left",
-                  alignItems: "center",
-                }}
-              >
-                <JavascriptIcon fontSize="large" />
-              </Typography>
-
-              <div style={styles.projectName}>
-                <h5>Project name</h5>
-              </div>
-              {/* <hr /> */}
-            </AccordionSummary>
-
-            <AccordionDetails>
-              <Typography style={style.summaryText}>
-                Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-                feugiat. Aliquam eget maximus est, id dignissim quam.
-              </Typography>
-            </AccordionDetails>
-            <div>
-              <FormInput />
-            </div>
-          </Accordion>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function GiveAssist() {
   const styles = style();
+  const [expanded, setExpanded] = useState(false);
+  const [queryData, setqueryData] = useState([]);
+
+  const handleChange = (index) => (event, isExpanded) => {
+    setExpanded(isExpanded ? index : false);
+  };
+
+  function getQueries() {
+    fetch("http://localhost:3001/queries")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setqueryData(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  useEffect(() => {
+    getQueries();
+  }, []);
 
   return (
     <div
@@ -202,11 +146,7 @@ export default function GiveAssist() {
             >
               <AppBar position="static" elevation={0}>
                 <Toolbar>
-                  <Button
-                    style={styles.logoText}
-                    color="inherit"
-                    // style={{ textTransform: "none" }}
-                  >
+                  <Button style={styles.logoText} color="inherit">
                     Helpdesk | Give Assist
                   </Button>
 
@@ -232,14 +172,97 @@ export default function GiveAssist() {
                   height: "500px",
                 }}
               >
-                <QueryAccordion />
+                <div>
+                  <div style={styles.individualAccordionContainer}>
+                    {queryData &&
+                      queryData.length > 0 &&
+                      queryData.reverse().map((query, index) => {
+                        return (
+                          <div key={index}>
+                            <Accordion
+                              style={styles.accordionSummary}
+                              expanded={expanded === index}
+                              onChange={handleChange(index)}
+                            >
+                              <AccordionSummary
+                                expandIcon={<ExpandMoreIcon fontSize="large" />}
+                                aria-controls="panel1bh-content"
+                                id="panel1bh-header"
+                              >
+                                <Typography
+                                  sx={{
+                                    width: "33%",
+                                    flexShrink: 0,
+                                    display: "flex",
+                                    justifyContent: "left",
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  {query.flavor === "Python" ? (
+                                    <Icon
+                                      icon="mdi:language-python"
+                                      height="28px"
+                                      weight="28px"
+                                    />
+                                  ) : query.flavor === "JavaScript" ? (
+                                    <Icon
+                                      icon="ion:logo-javascript"
+                                      height="28px"
+                                      weight="28px"
+                                    />
+                                  ) : query.flavor === "Java" ? (
+                                    <Icon
+                                      icon="bi:filetype-java"
+                                      height="28px"
+                                      weight="28px"
+                                    />
+                                  ) : null}
+                                </Typography>
 
-                <QueryAccordion />
-                <QueryAccordion />
-                <QueryAccordion />
-                <QueryAccordion />
-                <QueryAccordion />
-                <QueryAccordion />
+                                <div style={styles.projectName}>
+                                  <h5>{query.project}</h5>
+                                </div>
+                              </AccordionSummary>
+
+                              <AccordionDetails>
+                                <Typography
+                                  style={style.summaryText}
+                                  fontFamily="Consolas, inter, Helvetica"
+                                >
+                                  {query.comment}
+                                </Typography>
+                              </AccordionDetails>
+                              <div>
+                                <form
+                                  action="http://localhost:3001/replies"
+                                  method="POST"
+                                >
+                                  <div>
+                                    <textarea
+                                      style={{
+                                        width: "99.5%",
+                                        border: "0 solid",
+                                        fontFamily: "Inter, Helvetica",
+                                      }}
+                                      rows="4"
+                                      cols="50"
+                                      name="reply"
+                                      placeholder="Write reply..."
+                                    ></textarea>
+                                    <div style={styles.sendButtonContainer}>
+                                      <button style={styles.sendReply}>
+                                        Send Reply
+                                      </button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </Accordion>
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
               </div>
             </React.Fragment>
           </ThemeProvider>

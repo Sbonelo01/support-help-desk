@@ -69,6 +69,7 @@ const styles = {
     fontStyle: "normal",
     fontSize: "16px",
     fontWeight: "800",
+    backgroundColor: "white",
   },
 };
 
@@ -84,81 +85,75 @@ function Form() {
         borderRadius: "0px",
       }}
     >
-      {" "}
-      {/* <Form style={{ display: "flex" }}> */}
-      <div style={{ display: "flex" }}>
+      <form action="http://localhost:3001/queries" method="POST">
+        <div style={{ display: "flex" }}>
+          <div>
+            <div>
+              <input
+                style={styles.input}
+                type="text"
+                id="fname"
+                name="email"
+                placeholder="email address"
+              ></input>
+            </div>
+            <div>
+              <input
+                style={styles.input}
+                type="text"
+                id="fname"
+                name="flavor"
+                placeholder="Flavor"
+              ></input>
+            </div>
+            <div>
+              <input
+                style={styles.input}
+                type="text"
+                id="fname"
+                name="project"
+                placeholder="Project name"
+              ></input>
+            </div>
+            <div>
+              <input
+                disabled
+                style={styles.input}
+                type="text"
+                id="fname"
+                name="fname"
+                placeholder="Upload screenshot"
+              ></input>
+            </div>
+          </div>
+          <div
+            style={{
+              flex: "1",
+              padding: "1rem",
+
+              margin: "2px",
+            }}
+          >
+            <div>
+              <textarea
+                style={{
+                  width: "99%",
+                  height: "99%",
+                  border: "1 solid",
+                  fontFamily: "Inter, Helvetica",
+                }}
+                rows="17"
+                cols="50"
+                name="comment"
+                placeholder="Here is what I have tried..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
         <div>
-          <div>
-            {/* input for text */}
-            <input
-              style={styles.input}
-              type="text"
-              id="fname"
-              name="fname"
-              value="John"
-            ></input>
-          </div>
-          <div>
-            {/* input for text */}
-            <input
-              style={styles.input}
-              type="text"
-              id="fname"
-              name="fname"
-              value="John"
-            ></input>
-          </div>
-          <div>
-            {/* input for text */}
-            <input
-              style={styles.input}
-              type="text"
-              id="fname"
-              name="fname"
-              value="John"
-            ></input>
-          </div>
-          <div>
-            {/* input for text */}
-            <input
-              style={styles.input}
-              type="text"
-              id="fname"
-              name="fname"
-              value="John"
-            ></input>
-          </div>
+          <button style={styles.sendButton}>Submit</button>
         </div>
-        <div
-          style={{
-            flex: "1",
-            padding: "1rem",
-            // border: "0.1px solid",
-            margin: "2px",
-          }}
-        >
-          <div>
-            {/* input for text */}
-            <input
-              style={styles.textInput}
-              type="text"
-              id="fname"
-              name="fname"
-              value="Here's what I have tried"
-            ></input>
-          </div>
-        </div>
-      </div>
-      <div>
-        <input
-          style={styles.sendButton}
-          type="text"
-          id="fname"
-          name="fname"
-          value="Submit"
-        ></input>
-        {/* </Form> */}
-      </div>
+      </form>
     </div>
   );
 }
@@ -175,7 +170,6 @@ export default function GetAssist() {
       <div
         style={{
           position: "fixed",
-          //   margin: "10%",
           width: "90vw",
           height: "90vh",
           left: "5%",
@@ -199,9 +193,6 @@ export default function GetAssist() {
                     component="div"
                     sx={{ flexGrow: 1 }}
                   ></Typography>
-                  {/* <div></div> */}
-                  {/* <Button color="inherit">Get assist</Button>
-                  <Button color="inherit">Give assist</Button> */}
                 </Toolbar>
               </AppBar>
             </Box>
