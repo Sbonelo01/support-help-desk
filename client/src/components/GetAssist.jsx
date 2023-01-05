@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-
+import { styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
+// import { set } from "../../../server/app";
+// import { notify } from "../../../server/routes";
 
 const theme = createTheme({
   palette: {
     primary: "",
   },
 });
+
+const Item = styled(Paper)(({ theme }) => ({
+  color: theme.palette.text.secondary,
+}));
 
 const styles = {
   logoButton: {
@@ -24,20 +34,10 @@ const styles = {
     padding: "40px",
   },
   input: {
-    height: "56px",
-    width: "464px",
-    left: "245px",
-    top: "calc(50% - 56px/2 - 89px",
-    borderRadius: "10px",
-    border: "0.5px solid",
-    margin: "10px",
-    fontFontFamily: "Inter, Helvetica",
-    fontStyle: "normal",
-    fontSize: "16px",
-    fontWeight: "800",
-    display: "flex",
-    alignItems: "center",
-    textAlign: "left",
+    height: "100%",
+    width: "100%",
+    border: "none",
+    padding: "10px 0 10px 10px",
   },
   textInput: {
     height: "270px",
@@ -56,57 +56,81 @@ const styles = {
     textAlign: "left",
   },
   sendButton: {
-    position: "absolute",
-    width: "464px",
-    height: "56px",
-    left: "calc(50% - 464px/2 + 2.5px)",
-    top: "calc(50% - 330px/2 + 263px)",
-    border: "0.5px solid",
-    borderRadius: "10px",
-    alignItems: "center",
-    textAlign: "center",
-    fontFontFamily: "Inter, Helvetica",
-    fontStyle: "normal",
-    fontSize: "16px",
-    fontWeight: "800",
     backgroundColor: "white",
+    padding: "7px",
+    borderRadius: "10px",
+    margin: "14px",
   },
 };
 
+function Notify() {
+  const [allQueries, setAllQueries] = useState([]);
+
+  function getQueries() {
+    fetch("http://localhost:3001/queries")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setAllQueries(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
+
+  useEffect(() => {
+    getQueries();
+  }, []);
+
+  return (
+    <div style={{ maxHeight: "7%", width: "3.5%" }}>
+      {/* <div style={{ backgroundColor: "orange", height: "30px" }}></div> */}
+      Notifications
+      <ul>
+        {allQueries.map((query, index) => {
+          return (
+            <li key={index} style={{ listStyle: "none", margin: "10px" }}>
+              <div>{query.email}</div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 function Form() {
   return (
-    <div
-      style={{
-        position: "absolute",
-        height: "486px",
-        width: "1042px",
-        left: "209px",
-        top: "230px",
-        borderRadius: "0px",
-      }}
-    >
-      <form action="http://localhost:3001/queries" method="POST">
-        <div style={{ display: "flex" }}>
-          <div>
-            <div>
+    <form action="http://localhost:3001/queries" method="POST">
+      <Box sx={{ width: "100%" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <Item>
+              {" "}
               <input
                 style={styles.input}
                 type="text"
                 id="fname"
                 name="email"
-                placeholder="email address"
+                placeholder="email adress ..."
               ></input>
-            </div>
-            <div>
+            </Item>
+          </Grid>
+          <Grid item xs={4}>
+            <Item>
+              {" "}
               <input
                 style={styles.input}
                 type="text"
                 id="fname"
                 name="flavor"
-                placeholder="Flavor"
+                placeholder="flavor"
               ></input>
-            </div>
-            <div>
+            </Item>
+          </Grid>
+          <Grid item xs={4}>
+            <Item>
               <input
                 style={styles.input}
                 type="text"
@@ -114,51 +138,41 @@ function Form() {
                 name="project"
                 placeholder="Project name"
               ></input>
-            </div>
+            </Item>
+          </Grid>
+          <Grid item xs={12}>
             <div>
-              <input
-                disabled
-                style={styles.input}
-                type="text"
-                id="fname"
-                name="fname"
-                placeholder="Upload screenshot"
-              ></input>
+              <Item>
+                <textarea
+                  style={{
+                    width: "99%",
+                    height: "99%",
+                    border: "none",
+                    fontFamily: "Inter, Helvetica",
+                  }}
+                  maxLength="70"
+                  cols="50"
+                  name="comment"
+                  placeholder="Here is what I have tried..."
+                ></textarea>
+              </Item>
             </div>
-          </div>
-          <div
-            style={{
-              flex: "1",
-              padding: "1rem",
-
-              margin: "2px",
-            }}
-          >
-            <div>
-              <textarea
-                style={{
-                  width: "99%",
-                  height: "99%",
-                  border: "1 solid",
-                  fontFamily: "Inter, Helvetica",
-                }}
-                rows="17"
-                cols="50"
-                name="comment"
-                placeholder="Here is what I have tried..."
-              ></textarea>
-            </div>
-          </div>
-        </div>
-        <div>
+          </Grid>
           <button style={styles.sendButton}>Submit</button>
-        </div>
-      </form>
-    </div>
+        </Grid>
+      </Box>
+    </form>
   );
 }
 
 export default function GetAssist() {
+  const [isClicked, setIsSclicked] = useState(false);
+  const handleIconOnClick = (e) => {
+    e.preventDefault();
+    // Toggle state on and off
+    setIsSclicked((current) => !current);
+  };
+
   return (
     <div
       style={{
@@ -193,10 +207,46 @@ export default function GetAssist() {
                     component="div"
                     sx={{ flexGrow: 1 }}
                   ></Typography>
+
+                  <Link to="/">
+                    <Icon
+                      icon="arcticons:notificationcron"
+                      // color="#f32fff" TODO: NEED TO MAKE A CHECKS FOR CHANGE IN STATE AND CHANGE TO GREEN
+                      height="28px"
+                      weight="28px"
+                      onClick={handleIconOnClick}
+                    />
+                  </Link>
                 </Toolbar>
               </AppBar>
+              {isClicked ? (
+                <div
+                  style={{
+                    position: "absolute",
+                    right: "0%",
+                    backgroundColor: "green",
+                    borderRadius: "10px",
+                    padding: "20px",
+                  }}
+                >
+                  {/* <div style={{ width: "20px", height: "20px" }}></div> */}
+                  <Notify />
+                </div>
+              ) : null}
             </Box>
-            <Form />
+            <div>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: 5,
+                  width: "90%",
+                  margin: "2%",
+                }}
+              >
+                <Form />
+              </div>
+            </div>
           </ThemeProvider>
         </div>
       </div>

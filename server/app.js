@@ -1,15 +1,15 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 
-var app = express();
+const app = express();
 
 const queries = [];
 const replies = [];
@@ -37,7 +37,7 @@ app.get("/home", (req, res) => {
 // Post the queries
 app.post("/queries", (req, res) => {
   const query = req.body;
-  console.log(query);
+
   queries.push(query);
   res.send("Query posted successfully");
 });
@@ -49,8 +49,7 @@ app.get("/queries", (req, res) => {
 // Post the query reply
 app.post("/replies", (req, res) => {
   const reply = req.body;
-  console.log(req);
-  console.log(reply);
+
   replies.push(reply);
   res.send("Reply sent successfully");
 });
@@ -59,7 +58,7 @@ app.get("/replies", (req, res) => {
   res.json(replies);
 });
 
-console.log(queries, replies);
+// console.log(queries, replies, "HJVJHBHJ");
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

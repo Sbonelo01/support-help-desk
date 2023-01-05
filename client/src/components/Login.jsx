@@ -44,8 +44,8 @@ const styles = {
     position: "absolute",
     width: "37px",
     height: "42px",
-    left: "471px",
-    top: "490px",
+    // left: "471px",
+    // top: "490px",
     left: "calc(50% - 464px/2 + 2.5px)",
     top: "calc(50% - 330px/2 + 263px)",
   },
@@ -75,6 +75,7 @@ function Form() {
             name="fname"
             // value="Login with Google"
           >
+            <Icon icon="mdi:language-python" height="28px" weight="28px" />
             Login with Google
           </button>
           {/* </Form> */}

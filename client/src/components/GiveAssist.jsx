@@ -12,9 +12,10 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CloseIcon from "@mui/icons-material/Close";
+// import CloseIcon from "@mui/icons-material/Close";
 
 import { Icon } from "@iconify/react";
+import { Link } from "react-router-dom";
 
 const theme = createTheme({
   palette: {
@@ -50,8 +51,7 @@ const style = (theme) => ({
     position: "absolute",
     width: "37px",
     height: "42px",
-    left: "471px",
-    top: "490px",
+
     left: "calc(50% - 464px/2 + 2.5px)",
     top: "calc(50% - 330px/2 + 263px)",
   },
@@ -100,6 +100,18 @@ export default function GiveAssist() {
     setExpanded(isExpanded ? index : false);
   };
 
+  const handleOnSubmit = () => {
+    // fetch("http://localhost:3001/queries", {
+    //   method: "post",
+    //   body: data,
+    // })
+    //   .then((res) => {
+    //     return res.text();
+    //   })
+    //   .then((data) => {
+    //   });
+  };
+
   function getQueries() {
     fetch("http://localhost:3001/queries")
       .then((response) => {
@@ -116,6 +128,8 @@ export default function GiveAssist() {
   useEffect(() => {
     getQueries();
   }, []);
+
+  console.log(queryData.reverse());
 
   return (
     <div
@@ -156,7 +170,14 @@ export default function GiveAssist() {
                     sx={{ flexGrow: 1 }}
                   ></Typography>
 
-                  <CloseIcon />
+                  {/* <CloseIcon /> */}
+                  <Link to="/">
+                    <Icon
+                      icon="clarity:home-line"
+                      height="28px"
+                      weight="28px"
+                    />
+                  </Link>
                 </Toolbar>
               </AppBar>
             </Box>
@@ -176,7 +197,7 @@ export default function GiveAssist() {
                   <div style={styles.individualAccordionContainer}>
                     {queryData &&
                       queryData.length > 0 &&
-                      queryData.reverse().map((query, index) => {
+                      queryData.map((query, index) => {
                         return (
                           <div key={index}>
                             <Accordion
@@ -247,10 +268,13 @@ export default function GiveAssist() {
                                       rows="4"
                                       cols="50"
                                       name="reply"
-                                      placeholder="Write reply..."
+                                      placeholder="Try this ..."
                                     ></textarea>
                                     <div style={styles.sendButtonContainer}>
-                                      <button style={styles.sendReply}>
+                                      <button
+                                        style={styles.sendReply}
+                                        onSubmit={handleOnSubmit}
+                                      >
                                         Send Reply
                                       </button>
                                     </div>
