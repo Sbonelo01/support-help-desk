@@ -25,41 +25,20 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const styles = {
-  logoButton: {
-    // fontFontFamily: "Itim",
-    fontStyle: "normal",
-    fontSize: "16px",
-    fontWeight: "800",
-    lineHeight: "19px",
-    padding: "40px",
-  },
   input: {
     height: "100%",
     width: "100%",
     border: "none",
     padding: "10px 0 10px 10px",
   },
-  textInput: {
-    height: "270px",
-    width: "464px",
-    left: "741px",
-    bottom: "582px",
-    borderRadius: "10px",
-    border: "0.5px solid",
-    // fontFontFamily: "Itim",
-    fontStyle: "normal",
-    fontSize: "16px",
-    fontWeight: "800",
-    lineHeight: "19px",
-    display: "flex",
-    alignItems: "center",
-    textAlign: "left",
-  },
-  sendButton: {
-    backgroundColor: "white",
-    padding: "7px",
-    borderRadius: "10px",
-    margin: "14px",
+  sendReply: {
+    position: "absolute",
+    right: 5,
+    bottom: 4,
+    border: "0px solid",
+    padding: "2px",
+    // backgroundColor: "grey",
+    boxShadow: "1px 1px 10px 1px grey insert",
   },
 };
 
@@ -119,10 +98,7 @@ function Form() {
           </Grid>
           <Grid item xs={4}>
             <Item>
-              <select
-                name="flavor"
-                style={styles.input}
-              >
+              <select name="flavor" style={styles.input}>
                 <option>JavaScript</option>
                 <option>Python</option>
                 <option>Java</option>
@@ -141,8 +117,8 @@ function Form() {
             </Item>
           </Grid>
           <Grid item xs={12}>
-            <div>
-              <Item>
+            <span>
+              <Item style={{ height: "100px" }}>
                 <textarea
                   style={{
                     width: "99%",
@@ -155,10 +131,18 @@ function Form() {
                   name="comment"
                   placeholder="Here is what I have tried..."
                 ></textarea>
+                <button style={styles.sendReply}>
+                  <Icon
+                    icon="material-symbols:send-outline"
+                    width="28px"
+                    height="28px"
+                  />
+                </button>
               </Item>
-            </div>
+            </span>
           </Grid>
-          <button style={styles.sendButton}>Submit</button>
+
+          {/* Here, I will have the version number */}
         </Grid>
       </Box>
     </form>
@@ -222,6 +206,7 @@ export default function GetAssist() {
                     />
                     {/* Give assist */}
                   </Link>
+                  <div style={{ marginRight: "10px" }}></div>
                   <Icon
                     icon="arcticons:notificationcron"
                     // color="#f32fff" TODO: NEED TO MAKE A CHECKS FOR CHANGE IN STATE AND CHANGE TO GREEN
@@ -238,13 +223,11 @@ export default function GetAssist() {
                   style={{
                     position: "absolute",
                     right: "0%",
-                    // backgroundColor: "green",
                     borderRadius: "10px",
                     padding: "20px",
                     boxShadow: "3px 3px 10px 3px grey",
                   }}
                 >
-                  {/* <div style={{ width: "20px", height: "20px" }}></div> */}
                   <Notify />
                 </div>
               ) : null}

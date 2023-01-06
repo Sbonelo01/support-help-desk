@@ -9,6 +9,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+// import CircularProgress from "@mui/material/CircularProgress";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Icon } from "@iconify/react";
@@ -21,44 +22,9 @@ const theme = createTheme({
 });
 
 const style = (theme) => ({
-  logoText: {
-    fontFontFamily: "Itim",
-    textTransform: "none",
-    fontStyle: "normal",
-    fontSize: "16px",
-    fontWeight: "800",
-    lineHeight: "19px",
-  },
-  loginWithGoogleButton: {
-    position: "absolute",
-    width: "464px",
-    height: "56px",
-    left: "calc(50% - 464px/2 + 2.5px)",
-    top: "calc(50% - 330px/2 + 263px)",
-    border: "0.5px solid",
-    borderRadius: "10px",
-    alignItems: "center",
-    textAlign: "center",
-    // fontFontFamily: "Inter, Helvetica",
-    fontStyle: "normal",
-    fontSize: "16px",
-    fontWeight: "800",
-    backgroundColor: "#fff",
-  },
-  googleLogo: {
-    position: "absolute",
-    width: "37px",
-    height: "42px",
-
-    left: "calc(50% - 464px/2 + 2.5px)",
-    top: "calc(50% - 330px/2 + 263px)",
-  },
   accordionSummary: {
     margin: "10px",
-
     width: "80%",
-
-    // border: "1px solid",
     borderRadius: "10px",
   },
   projectName: {},
@@ -68,26 +34,12 @@ const style = (theme) => ({
   individualAccordionContainer: {
     marginLeft: "15%",
   },
-  input: {
-    color: "white",
-    padding: "5%",
-    maxHeight: "200px",
-  },
   sendReply: {
     position: "absolute",
     bottom: 6,
     right: 4,
-    // top: ,
-    // right: 4,
-    // height: "30px",
-    // borderRadius: "10px",
     border: "0px solid",
     backgroundColor: "white",
-    // padding: "15px",
-  },
-  sendButtonContainer: {
-    position: "relative",
-    padding: "3%",
   },
 });
 
@@ -102,7 +54,7 @@ export default function GiveAssist() {
 
   const handleOnSubmit = (query) => {
     // send an email to the email suplied
-    // window.alert("sent");
+
     console.log(query); // the email
   };
 
@@ -123,7 +75,7 @@ export default function GiveAssist() {
     getQueries();
   }, []);
 
-  console.log(queryData.reverse());
+  // console.log(queryData.reverse());
 
   return (
     <div
@@ -155,13 +107,14 @@ export default function GiveAssist() {
               <AppBar position="static" elevation={0}>
                 <Toolbar>
                   {/* <Button color="inherit"> */}
-                  <Icon
-                    icon="logos:helpscout"
-                    color="#f32fff"
-                    width="80px"
-                    height="80px"
-                  />
-                  {/* </Button> */}
+                  <Link to="/">
+                    <Icon
+                      icon="logos:helpscout"
+                      color="#f32fff"
+                      width="80px"
+                      height="80px"
+                    />
+                  </Link>
 
                   <Typography
                     variant="h6"
@@ -169,7 +122,6 @@ export default function GiveAssist() {
                     sx={{ flexGrow: 1 }}
                   ></Typography>
 
-                  {/* <CloseIcon /> */}
                   <Link to="/">
                     <Icon
                       icon="clarity:home-line"
@@ -194,7 +146,14 @@ export default function GiveAssist() {
               >
                 <div>
                   <div style={styles.individualAccordionContainer}>
-                    {queryData &&
+                    {console.log(queryData.length)}
+                    {queryData.length === 0 ? (
+                      <Box sx={{ display: "flex" }}>
+                        {/* <CircularProgress /> */}
+                        No tickets as yet
+                      </Box>
+                    ) : (
+                      queryData &&
                       queryData.length > 0 &&
                       queryData.map((query, index) => {
                         return (
@@ -243,10 +202,13 @@ export default function GiveAssist() {
                                   <h5>{query.project}</h5>
                                 </div>
                               </AccordionSummary>
-
-                              <AccordionDetails>
-                                {query.comment}
-                              </AccordionDetails>
+                              <div
+                                style={{ position: "relative", color: "red" }}
+                              >
+                                <AccordionDetails style={{}}>
+                                  {query.comment}
+                                </AccordionDetails>
+                              </div>
                               <div>
                                 <form
                                   action="http://localhost:3001/replies"
@@ -258,7 +220,6 @@ export default function GiveAssist() {
                                         width: "99.5%",
                                         border: "0 solid",
                                         boxSizing: "border-box",
-                                        // fontFamily: "Inter, Helvetica",
                                       }}
                                       rows="4"
                                       cols="50"
@@ -280,15 +241,14 @@ export default function GiveAssist() {
                                         height="28px"
                                       />
                                     </button>
-                                    {/* </Link> */}
-                                    {/* </div> */}
                                   </div>
                                 </form>
                               </div>
                             </Accordion>
                           </div>
                         );
-                      })}
+                      })
+                    )}
                   </div>
                 </div>
               </div>
