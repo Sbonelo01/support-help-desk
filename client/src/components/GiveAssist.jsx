@@ -4,7 +4,6 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -12,8 +11,6 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import CloseIcon from "@mui/icons-material/Close";
-
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 
@@ -25,7 +22,8 @@ const theme = createTheme({
 
 const style = (theme) => ({
   logoText: {
-    fontFontFamily: "Inter, Helvetica",
+    fontFontFamily: "Itim",
+    textTransform: "none",
     fontStyle: "normal",
     fontSize: "16px",
     fontWeight: "800",
@@ -41,7 +39,7 @@ const style = (theme) => ({
     borderRadius: "10px",
     alignItems: "center",
     textAlign: "center",
-    fontFontFamily: "Inter, Helvetica",
+    // fontFontFamily: "Inter, Helvetica",
     fontStyle: "normal",
     fontSize: "16px",
     fontWeight: "800",
@@ -60,7 +58,7 @@ const style = (theme) => ({
 
     width: "80%",
 
-    border: "1px solid",
+    // border: "1px solid",
     borderRadius: "10px",
   },
   projectName: {},
@@ -77,13 +75,15 @@ const style = (theme) => ({
   },
   sendReply: {
     position: "absolute",
-    top: 3,
+    bottom: 6,
     right: 4,
-    height: "40px",
-    borderRadius: "10px",
-    border: "1px solid",
+    // top: ,
+    // right: 4,
+    // height: "30px",
+    // borderRadius: "10px",
+    border: "0px solid",
     backgroundColor: "white",
-    padding: "10px",
+    // padding: "15px",
   },
   sendButtonContainer: {
     position: "relative",
@@ -100,16 +100,10 @@ export default function GiveAssist() {
     setExpanded(isExpanded ? index : false);
   };
 
-  const handleOnSubmit = () => {
-    // fetch("http://localhost:3001/queries", {
-    //   method: "post",
-    //   body: data,
-    // })
-    //   .then((res) => {
-    //     return res.text();
-    //   })
-    //   .then((data) => {
-    //   });
+  const handleOnSubmit = (query) => {
+    // send an email to the email suplied
+    // window.alert("sent");
+    console.log(query); // the email
   };
 
   function getQueries() {
@@ -160,9 +154,14 @@ export default function GiveAssist() {
             >
               <AppBar position="static" elevation={0}>
                 <Toolbar>
-                  <Button style={styles.logoText} color="inherit">
-                    Helpdesk | Give Assist
-                  </Button>
+                  {/* <Button color="inherit"> */}
+                  <Icon
+                    icon="logos:helpscout"
+                    color="#f32fff"
+                    width="80px"
+                    height="80px"
+                  />
+                  {/* </Button> */}
 
                   <Typography
                     variant="h6"
@@ -246,38 +245,43 @@ export default function GiveAssist() {
                               </AccordionSummary>
 
                               <AccordionDetails>
-                                <Typography
-                                  style={style.summaryText}
-                                  fontFamily="Consolas, inter, Helvetica"
-                                >
-                                  {query.comment}
-                                </Typography>
+                                {query.comment}
                               </AccordionDetails>
                               <div>
                                 <form
                                   action="http://localhost:3001/replies"
                                   method="POST"
                                 >
-                                  <div>
+                                  <div style={{ position: "relative" }}>
                                     <textarea
                                       style={{
                                         width: "99.5%",
                                         border: "0 solid",
-                                        fontFamily: "Inter, Helvetica",
+                                        boxSizing: "border-box",
+                                        // fontFamily: "Inter, Helvetica",
                                       }}
                                       rows="4"
                                       cols="50"
                                       name="reply"
                                       placeholder="Try this ..."
                                     ></textarea>
-                                    <div style={styles.sendButtonContainer}>
-                                      <button
-                                        style={styles.sendReply}
-                                        onSubmit={handleOnSubmit}
-                                      >
-                                        Send Reply
-                                      </button>
-                                    </div>
+                                    <button
+                                      style={styles.sendReply}
+                                      onClick={() =>
+                                        window.alert(
+                                          "Thank you, your reply has been sent"
+                                        )
+                                      }
+                                      onSubmit={handleOnSubmit(query.email)}
+                                    >
+                                      <Icon
+                                        icon="material-symbols:send-outline"
+                                        width="28px"
+                                        height="28px"
+                                      />
+                                    </button>
+                                    {/* </Link> */}
+                                    {/* </div> */}
                                   </div>
                                 </form>
                               </div>

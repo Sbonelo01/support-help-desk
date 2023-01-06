@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -26,7 +26,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const styles = {
   logoButton: {
-    fontFontFamily: "Inter, Helvetica",
+    // fontFontFamily: "Itim",
     fontStyle: "normal",
     fontSize: "16px",
     fontWeight: "800",
@@ -46,7 +46,7 @@ const styles = {
     bottom: "582px",
     borderRadius: "10px",
     border: "0.5px solid",
-    fontFontFamily: "Inter, Helvetica",
+    // fontFontFamily: "Itim",
     fontStyle: "normal",
     fontSize: "16px",
     fontWeight: "800",
@@ -91,7 +91,7 @@ function Notify() {
         {allQueries.map((query, index) => {
           return (
             <li key={index} style={{ listStyle: "none", margin: "10px" }}>
-              <div>{query.email}</div>
+              <div>{query.project}</div>
             </li>
           );
         })}
@@ -119,14 +119,14 @@ function Form() {
           </Grid>
           <Grid item xs={4}>
             <Item>
-              {" "}
-              <input
-                style={styles.input}
-                type="text"
-                id="fname"
+              <select
                 name="flavor"
-                placeholder="flavor"
-              ></input>
+                style={styles.input}
+              >
+                <option>JavaScript</option>
+                <option>Python</option>
+                <option>Java</option>
+              </select>
             </Item>
           </Grid>
           <Grid item xs={4}>
@@ -148,7 +148,7 @@ function Form() {
                     width: "99%",
                     height: "99%",
                     border: "none",
-                    fontFamily: "Inter, Helvetica",
+                    // fontFamily: "Inter, Helvetica",
                   }}
                   maxLength="70"
                   cols="50"
@@ -198,25 +198,39 @@ export default function GetAssist() {
             <Box sx={{ flexGrow: 1 }}>
               <AppBar position="static" elevation={0}>
                 <Toolbar>
-                  <Button style={styles.logoButton} color="inherit">
-                    Helpdesk | Get Assist
-                  </Button>
-
+                  {/* <Button color="inherit"> */}
+                  <Link to="/">
+                    <Icon
+                      icon="logos:helpscout"
+                      color="#f32fff"
+                      width="80px"
+                      height="80px"
+                    />
+                  </Link>
+                  {/* </Button> */}
                   <Typography
                     variant="h6"
                     component="div"
                     sx={{ flexGrow: 1 }}
                   ></Typography>
-
-                  <Link to="/">
+                  <Link style={{ textDecoration: "none" }} to="/give-assist">
                     <Icon
-                      icon="arcticons:notificationcron"
-                      // color="#f32fff" TODO: NEED TO MAKE A CHECKS FOR CHANGE IN STATE AND CHANGE TO GREEN
+                      icon="openmoji:help-others"
+                      color="#ffffff"
+                      width="28px"
                       height="28px"
-                      weight="28px"
-                      onClick={handleIconOnClick}
                     />
+                    {/* Give assist */}
                   </Link>
+                  <Icon
+                    icon="arcticons:notificationcron"
+                    // color="#f32fff" TODO: NEED TO MAKE A CHECKS FOR CHANGE IN STATE AND CHANGE TO GREEN
+                    height="28px"
+                    weight="28px"
+                    onClick={handleIconOnClick}
+                    color="green"
+                  />
+                  {/* </Link> */}
                 </Toolbar>
               </AppBar>
               {isClicked ? (
@@ -224,9 +238,10 @@ export default function GetAssist() {
                   style={{
                     position: "absolute",
                     right: "0%",
-                    backgroundColor: "green",
+                    // backgroundColor: "green",
                     borderRadius: "10px",
                     padding: "20px",
+                    boxShadow: "3px 3px 10px 3px grey",
                   }}
                 >
                   {/* <div style={{ width: "20px", height: "20px" }}></div> */}

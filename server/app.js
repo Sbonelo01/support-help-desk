@@ -31,16 +31,17 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 //API end point
-app.get("/home", (req, res) => {
-  res.json({ message: "Server up and runing" });
-});
+// app.get("/home", (req, res) => {
+//   res.json({ message: "Server up and runing" });
+// });
 // Post the queries
 app.post("/queries", (req, res) => {
   const query = req.body;
-
+  // console.log(queries);
   queries.push(query);
-  res.send("Query posted successfully");
+  res.redirect("http://localhost:3000");
 });
+
 // Get the queries
 app.get("/queries", (req, res) => {
   res.json(queries);
@@ -51,8 +52,9 @@ app.post("/replies", (req, res) => {
   const reply = req.body;
 
   replies.push(reply);
-  res.send("Reply sent successfully");
+  res.redirect("http://localhost:3000/give-assist");
 });
+
 // Get the query replies
 app.get("/replies", (req, res) => {
   res.json(replies);

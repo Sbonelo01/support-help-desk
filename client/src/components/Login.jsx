@@ -18,7 +18,7 @@ const theme = createTheme({
 
 const styles = {
   logoText: {
-    fontFontFamily: "Inter, Helvetica",
+    // fontFontFamily: "Inter, Helvetica",
     fontStyle: "normal",
     fontSize: "16px",
     fontWeight: "800",
@@ -34,7 +34,7 @@ const styles = {
     borderRadius: "10px",
     alignItems: "center",
     textAlign: "center",
-    fontFontFamily: "Inter, Helvetica",
+    // fontFontFamily: "Inter, Helvetica",
     fontStyle: "normal",
     fontSize: "16px",
     fontWeight: "800",
