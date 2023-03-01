@@ -1,0 +1,25 @@
+{
+  "name": "support-help-desk",
+  "version": "1.0.0",
+  "description": "support help desk application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/bin/www && npm start client/",
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sbonelo01/support-help-desk.git"
+  },
+  "keywords": [
+    "support",
+    "help",
+    "desk"
+  ],
+  "author": "Sbonelo Mkhize",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sbonelo01/support-help-desk/issues"
+  },
+  "homepage": "https://github.com/Sbonelo01/support-help-desk#readme"
+}
