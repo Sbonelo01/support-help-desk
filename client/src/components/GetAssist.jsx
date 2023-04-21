@@ -46,7 +46,7 @@ function Notify() {
   const [allQueries, setAllQueries] = useState([]);
 
   function getQueries() {
-    fetch("http://localhost:3001/queries")
+    fetch("https://support-help-desk-backend.onrender.com/queries")
       .then((response) => {
         return response.json();
       })
@@ -81,7 +81,10 @@ function Notify() {
 
 function Form() {
   return (
-    <form action="http://localhost:3001/queries" method="POST">
+    <form
+      action="https://support-help-desk-backend.onrender.com/queries"
+      method="POST"
+    >
       <Box sx={{ width: "100%" }}>
         <Grid container spacing={2}>
           <Grid item xs={4}>

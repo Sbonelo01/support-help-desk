@@ -59,7 +59,7 @@ export default function GiveAssist() {
   };
 
   function getQueries() {
-    fetch("http://localhost:3001/queries")
+    fetch("https://support-help-desk-backend.onrender.com/queries")
       .then((response) => {
         return response.json();
       })
