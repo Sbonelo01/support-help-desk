@@ -211,7 +211,7 @@ export default function GiveAssist() {
                               </div>
                               <div>
                                 <form
-                                  action="http://localhost:3001/replies"
+                                  action="https://support-help-desk-backend.onrender.com/replies"
                                   method="POST"
                                 >
                                   <div style={{ position: "relative" }}>

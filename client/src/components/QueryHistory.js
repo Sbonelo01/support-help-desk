@@ -21,7 +21,7 @@ export default function QueryHistory() {
   console.log(Number(randomValue[0]));
 
   const getAllQueries = () => {
-    fetch("http://localhost:3001/replies")
+    fetch("https://support-help-desk-backend.onrender.com/replies")
       .then((res) => res.json())
       .then((data) => setAllQueries(data));
   };
