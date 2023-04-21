@@ -52,7 +52,7 @@ app.post("/replies", (req, res) => {
   const reply = req.body;
 
   replies.push(reply);
-  res.redirect("https://support-help-desk.onrender.com/give-assist");
+  res.redirect("https://support-help-desk.onrender.com");
 });
 
 // Get the query replies
