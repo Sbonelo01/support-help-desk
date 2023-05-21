@@ -13,6 +13,7 @@ import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 // import { set } from "../../../server/app";
 // import { notify } from "../../../server/routes";
+// import "../styles/main.css";
 
 const theme = createTheme({
   palette: {
@@ -46,7 +47,7 @@ function Notify() {
   const [allQueries, setAllQueries] = useState([]);
 
   function getQueries() {
-    fetch("https://support-help-desk-backend.onrender.com/queries")
+    fetch("http://localhost:3001/queries")
       .then((response) => {
         return response.json();
       })
@@ -65,7 +66,7 @@ function Notify() {
   return (
     <div style={{ maxHeight: "7%", width: "3.5%" }}>
       {/* <div style={{ backgroundColor: "orange", height: "30px" }}></div> */}
-      Notifications
+      Bookmarks
       <ul>
         {allQueries.map((query, index) => {
           return (
@@ -81,10 +82,7 @@ function Notify() {
 
 function Form() {
   return (
-    <form
-      action="https://support-help-desk-backend.onrender.com/queries"
-      method="POST"
-    >
+    <form action="http://localhost:3001/queries" method="POST">
       <Box sx={{ width: "100%" }}>
         <Grid container spacing={2}>
           <Grid item xs={4}>
@@ -169,13 +167,13 @@ export default function GetAssist() {
       }}
     >
       <div
+        // className="main"
         style={{
           position: "fixed",
           width: "90vw",
           height: "90vh",
           left: "5%",
           bottom: "0%",
-          mixBlendMode: "color-dodge",
           //   boxShadow: "0px 4px 4px rgba(0,0,0,0.25",
           borderRadius: "10px",
         }}
@@ -202,8 +200,8 @@ export default function GetAssist() {
                   ></Typography>
                   <Link style={{ textDecoration: "none" }} to="/give-assist">
                     <Icon
-                      icon="openmoji:help-others"
-                      color="#ffffff"
+                      icon="flat-color-icons:assistant"
+                      // color="#ffffff"
                       width="28px"
                       height="28px"
                     />
@@ -211,7 +209,7 @@ export default function GetAssist() {
                   </Link>
                   <div style={{ marginRight: "10px" }}></div>
                   <Icon
-                    icon="arcticons:notificationcron"
+                    icon="material-symbols:bookmark-outline"
                     // color="#f32fff" TODO: NEED TO MAKE A CHECKS FOR CHANGE IN STATE AND CHANGE TO GREEN
                     height="28px"
                     weight="28px"

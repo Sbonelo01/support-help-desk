@@ -39,7 +39,7 @@ app.post("/queries", (req, res) => {
   const query = req.body;
   // console.log(queries);
   queries.push(query);
-  res.redirect("https://support-help-desk.onrender.com");
+  res.redirect("http://localhost:3000");
 });
 
 // Get the queries
@@ -52,7 +52,7 @@ app.post("/replies", (req, res) => {
   const reply = req.body;
 
   replies.push(reply);
-  res.redirect("https://support-help-desk.onrender.com");
+  res.redirect("http://localhost:3000");
 });
 
 // Get the query replies

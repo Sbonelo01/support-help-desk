@@ -1,0 +1,87 @@
+.rcw-widget-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 0;
+  height: auto;
+  position: relative;
+  border-radius: 0;
+}
+
+.rcw-full-screen {
+  @include widget-container-fs;
+}
+
+@media screen and (max-width: 800px) {
+  .rcw-widget-container {
+    height: auto;
+    @include widget-container-fs;
+  }
+}
+
+.rcw-previewer .rcw-message-img {
+  cursor: pointer;
+}
+
+.rcw-close-widget-container {
+  height: auto;
+  width: auto;
+  color: black !important;
+}
+
+.rcw-close-button {
+  color: black !important;
+  background-color: white !important;
+}
+
+.rcw-messages-container {
+  height: auto !important;
+}
+
+.rcw-header {
+  color: black !important;
+  background-color: white !important;
+}
+
+.rcw-title {
+  display: hidden;
+}
+
+@media screen and (max-width: 800px) {
+  .rcw-hide-sm {
+    display: block !important;
+  }
+}
+
+div.rcw-header {
+  display: relative !important;
+  height: auto !important;
+  border-bottom: 0.005px solid black !important;
+}
+
+.rcw-titile {
+  padding: 0 !important;
+}
+
+span {
+  display: absolute !important;
+  left: 0 !important;
+}
+
+img.rcw-picker-btn {
+  display: hidden !important;
+}
+
+button.rcw-launcher {
+  width: 30px !important;
+  height: 30px !important;
+  background-color: black !important;
+}
+
+div.rcw-sender {
+  background-color: white !important;
+}
+
+div.rcw-message-text {
+  background-color: #fff !important;
+  border: 0.05px solid black !important;
+}

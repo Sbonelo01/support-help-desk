@@ -8,7 +8,7 @@ import GiveAssist from "./components/GiveAssist";
 import GetAssist from "./components/GetAssist";
 // import Home from "./components/Home";
 // import Login from "./components/Login";
-import QueryHistory from "./components/QueryHistory";
+// import QueryHistory from "./components/QueryHistory";
 // import { Route } from "react-router-dom";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<GetAssist />} />
         <Route path="give-assist" element={<GiveAssist />} />
         {/* <Route path="login" element={<Login />} /> */}
-        <Route path="query-history" element={<QueryHistory />} />
+        {/* <Route path="query-history" element={<QueryHistory />} /> */}
       </Routes>
     </div>
   );

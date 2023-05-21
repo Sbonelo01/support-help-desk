@@ -9,11 +9,16 @@ import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-// import CircularProgress from "@mui/material/CircularProgress";
+
+import reply from "../assets/images/reply.png";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
+
+import { Widget as RCW, addResponseMessage } from "react-chat-widget";
+import "react-chat-widget/lib/styles.css";
+import "../styles/chat-widget.css";
 
 const theme = createTheme({
   palette: {
@@ -26,6 +31,7 @@ const style = (theme) => ({
     margin: "10px",
     width: "80%",
     borderRadius: "10px",
+    boxShadow: "0 0 3.5px",
   },
   projectName: {},
   summaryText: {
@@ -45,6 +51,7 @@ const style = (theme) => ({
 
 export default function GiveAssist() {
   const styles = style();
+  const [isClicked, setIsClicked] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [queryData, setqueryData] = useState([]);
 
@@ -52,14 +59,17 @@ export default function GiveAssist() {
     setExpanded(isExpanded ? index : false);
   };
 
-  const handleOnSubmit = (query) => {
-    // send an email to the email suplied
+  function handleNewUserMessage(newMessage) {
+    console.log(`incoming message: ${newMessage}`);
+    // addResponseMessage();
+  }
 
-    console.log(query); // the email
+  const addUserMessage = (arg) => {
+    console.log(`thus is ${arg}`);
   };
 
   function getQueries() {
-    fetch("https://support-help-desk-backend.onrender.com/queries")
+    fetch("http://localhost:3001/queries")
       .then((response) => {
         return response.json();
       })
@@ -74,8 +84,6 @@ export default function GiveAssist() {
   useEffect(() => {
     getQueries();
   }, []);
-
-  // console.log(queryData.reverse());
 
   return (
     <div
@@ -124,7 +132,8 @@ export default function GiveAssist() {
 
                   <Link to="/">
                     <Icon
-                      icon="clarity:home-line"
+                      icon="material-symbols:home-outline"
+                      color="black"
                       height="28px"
                       weight="28px"
                     />
@@ -202,47 +211,27 @@ export default function GiveAssist() {
                                   <h5>{query.project}</h5>
                                 </div>
                               </AccordionSummary>
+                              <AccordionDetails>
+                                {isClicked ? null : query.comment}
+                              </AccordionDetails>
                               <div
-                                style={{ position: "relative", color: "red" }}
+                                onClick={() => {
+                                  setIsClicked(true);
+                                }}
+                                style={{
+                                  position: "relative",
+                                  maxHeight: "auto",
+                                }}
                               >
-                                <AccordionDetails style={{}}>
-                                  {query.comment}
-                                </AccordionDetails>
-                              </div>
-                              <div>
-                                <form
-                                  action="https://support-help-desk-backend.onrender.com/replies"
-                                  method="POST"
-                                >
-                                  <div style={{ position: "relative" }}>
-                                    <textarea
-                                      style={{
-                                        width: "99.5%",
-                                        border: "0 solid",
-                                        boxSizing: "border-box",
-                                      }}
-                                      rows="4"
-                                      cols="50"
-                                      name="reply"
-                                      placeholder="Try this ..."
-                                    ></textarea>
-                                    <button
-                                      style={styles.sendReply}
-                                      onClick={() =>
-                                        window.alert(
-                                          "Thank you, your reply has been sent"
-                                        )
-                                      }
-                                      onSubmit={handleOnSubmit(query.email)}
-                                    >
-                                      <Icon
-                                        icon="material-symbols:send-outline"
-                                        width="28px"
-                                        height="28px"
-                                      />
-                                    </button>
-                                  </div>
-                                </form>
+                                <RCW
+                                  className="my-custom-chat-bubble"
+                                  title=""
+                                  subtitle={query.comment}
+                                  addUserMessage={addUserMessage}
+                                  emojis={true}
+                                  launcherOpenImg={reply}
+                                  senderPlaceHolder="Try this ..."
+                                />
                               </div>
                             </Accordion>
                           </div>
