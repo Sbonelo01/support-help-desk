@@ -53,7 +53,7 @@
 }
 
 div.rcw-header {
-  display: relative !important;
+  display: none !important;
   height: auto !important;
   border-bottom: 0.005px solid black !important;
 }

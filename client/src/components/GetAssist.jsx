@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 // import { set } from "../../../server/app";
 // import { notify } from "../../../server/routes";
 // import "../styles/main.css";
+import { Widget as RCW, addResponseMessage } from "react-chat-widget";
+import pl from "../../package.json";
 
 const theme = createTheme({
   palette: {
@@ -59,8 +61,11 @@ function Notify() {
       });
   }
 
+  function sendQuery() {}
+
   useEffect(() => {
     getQueries();
+    sendQuery();
   }, []);
 
   return (
@@ -118,33 +123,16 @@ function Form() {
             </Item>
           </Grid>
           <Grid item xs={12}>
-            <span>
-              <Item style={{ height: "100px" }}>
-                <textarea
-                  style={{
-                    width: "99%",
-                    height: "99%",
-                    border: "none",
-                    // fontFamily: "Inter, Helvetica",
-                  }}
-                  maxLength="70"
-                  cols="50"
-                  name="comment"
-                  placeholder="Here is what I have tried..."
-                ></textarea>
-                <button style={styles.sendReply}>
-                  <Icon
-                    icon="material-symbols:send-outline"
-                    width="28px"
-                    height="28px"
-                  />
-                </button>
-              </Item>
-            </span>
+            <RCW
+              className="my-custom-chat-bubble"
+              emojis={true}
+              senderPlaceHolder="Please type your query ..."
+            />
           </Grid>
-
-          {/* Here, I will have the version number */}
         </Grid>
+        <div style={{ position: "relative" }}>
+          <p style={{ position: "absolute", left: "50%" }}>v{pl.version}</p>
+        </div>
       </Box>
     </form>
   );

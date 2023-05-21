@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import { Widget as RCW, addResponseMessage } from "react-chat-widget";
 import "react-chat-widget/lib/styles.css";
 import "../styles/chat-widget.css";
+import pl from "../../package.json";
 
 const theme = createTheme({
   palette: {
@@ -212,21 +213,28 @@ export default function GiveAssist() {
                                 </div>
                               </AccordionSummary>
                               <AccordionDetails>
-                                {isClicked ? null : query.comment}
+                                <div
+                                  style={{
+                                    position: "absolute",
+                                  }}
+                                >
+                                  {query.comment}
+                                </div>
                               </AccordionDetails>
                               <div
                                 onClick={() => {
                                   setIsClicked(true);
                                 }}
-                                style={{
-                                  position: "relative",
-                                  maxHeight: "auto",
-                                }}
+                                // style={{
+                                //   position: "relative",
+                                //   maxHeight: "auto",
+                                //   marginTop: "20px",
+                                // }}
                               >
                                 <RCW
                                   className="my-custom-chat-bubble"
                                   title=""
-                                  subtitle={query.comment}
+                                  subtitle=""
                                   addUserMessage={addUserMessage}
                                   emojis={true}
                                   launcherOpenImg={reply}
@@ -242,6 +250,9 @@ export default function GiveAssist() {
                 </div>
               </div>
             </React.Fragment>
+            <p style={{ position: "absolute", left: "50%", bottom: "1px" }}>
+              v{pl.version}
+            </p>
           </ThemeProvider>
         </div>
       </div>
