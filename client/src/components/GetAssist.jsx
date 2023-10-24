@@ -168,6 +168,7 @@ export default function GetAssist() {
       >
         <div>
           <ThemeProvider theme={theme}>
+            {alert("PLEASE NOTE THAT THIS WEB APP IS STILL UNDER CONSTRUCTION")}
             <Box sx={{ flexGrow: 1 }}>
               <AppBar position="static" elevation={0}>
                 <Toolbar>
